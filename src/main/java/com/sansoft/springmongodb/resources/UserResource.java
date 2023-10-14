@@ -1,5 +1,6 @@
 package com.sansoft.springmongodb.resources;
 
+import com.sansoft.springmongodb.domain.Post;
 import com.sansoft.springmongodb.domain.User;
 import com.sansoft.springmongodb.dto.UserDTO;
 import com.sansoft.springmongodb.services.UserService;
@@ -51,5 +52,10 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        return ResponseEntity.ok().body(service.findById(id).getPosts());
     }
 }
